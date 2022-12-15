@@ -11,7 +11,7 @@ import { flattenToAppURL } from '@plone/volto/helpers';
 import { UniversalLink } from '@plone/volto/components';
 
 import config from '@plone/volto/registry';
-import Caption from '@kitconcept/volto-image/components/Caption/Caption';
+import Caption from '@kitconcept/volto-image-block/components/Caption/Caption';
 
 /**
  * View image block class.

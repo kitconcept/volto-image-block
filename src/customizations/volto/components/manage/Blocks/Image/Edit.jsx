@@ -14,10 +14,10 @@ import { isEqual } from 'lodash';
 import { ImageSidebar, SidebarPortal } from '@plone/volto/components';
 import { createContent } from '@plone/volto/actions';
 import { flattenToAppURL, withBlockExtensions } from '@plone/volto/helpers';
-import ImageWidget from '@kitconcept/volto-image/components/ImageWidget/ImageWidget';
+import ImageWidget from '@kitconcept/volto-image-block/components/ImageWidget/ImageWidget';
 
 import config from '@plone/volto/registry';
-import Caption from '@kitconcept/volto-image/components/Caption/Caption';
+import Caption from '@kitconcept/volto-image-block/components/Caption/Caption';
 
 /**
  * Edit image block class.
