@@ -83,7 +83,7 @@ class ImageEdit extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { data } = this.props;
+    const { block, data, onChangeBlock } = this.props;
     const Img = config.getComponent('Img').component;
     // Note defaultScale will be deprecated from Img component
     // Since we have srcset, it has no importance other than
@@ -98,6 +98,12 @@ class ImageEdit extends Component {
         : data.size === 's'
         ? 'mini'
         : 'huge';
+
+    const dataAdapter = config.getComponent({
+      name: 'dataAdapter',
+      dependencies: ['Image', 'BlockData'],
+    }).component;
+
     return (
       <div
         className={cx(
@@ -149,7 +155,22 @@ class ImageEdit extends Component {
             />
           </figure>
         ) : (
-          <ImageWidget {...this.props} />
+          <ImageWidget
+            {...this.props}
+            // Since we are using a component that has a widget interface
+            // we need to adapt its props to it
+            id="url"
+            onChange={(id, value, item) => {
+              dataAdapter({
+                block,
+                data,
+                id,
+                item,
+                onChangeBlock,
+                value,
+              });
+            }}
+          />
         )}
         <SidebarPortal selected={this.props.selected}>
           <ImageSidebar {...this.props} />

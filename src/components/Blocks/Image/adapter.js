@@ -2,6 +2,7 @@ export const ImageBlockDataAdapter = ({
   block,
   data,
   id,
+  item,
   onChangeBlock,
   value,
 }) => {
@@ -39,5 +40,13 @@ export const ImageBlockDataAdapter = ({
     };
   }
 
+  if (id === 'url') {
+    dataSaved = {
+      ...dataSaved,
+      credit: { data: item?.credit },
+      description: item?.Description,
+      title: item?.Title,
+    };
+  }
   onChangeBlock(block, dataSaved);
 };
