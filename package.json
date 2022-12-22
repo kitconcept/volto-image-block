@@ -14,6 +14,7 @@
     "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon"
   },
   "devDependencies": {
-    "@plone/scripts": "*"
-  }
+    "@plone/scripts": "^2.2.1"
+  },
+  "packageManager": "yarn@3.2.3"
 }
