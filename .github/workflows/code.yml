@@ -45,7 +45,7 @@ jobs:
 
       # Stylelint
       - name: Stylelint
-        run: cd addon-testing-project && yarn stylelint
+        run: cd addon-testing-project && yarn stylelint --allow-empty-input
 
       # Prettier
       - name: Prettier

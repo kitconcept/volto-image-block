@@ -1,4 +1,4 @@
-import { Img } from '@kitconcept/volto-blocks/components';
+import { Img } from './components/ImageLoader';
 import { imageBlockSchemaEnhancer } from './components/Blocks/Image/schema';
 import { ImageBlockDataAdapter } from './components/Blocks/Image/adapter';
 import ImageWidget from './components/ImageWidget/ImageWidget';

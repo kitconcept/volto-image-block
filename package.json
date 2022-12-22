@@ -13,8 +13,21 @@
   "scripts": {
     "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon"
   },
+  "dependencies": {
+    "blurhash": "1.1.5",
+    "fast-blurhash": "1.0.1"
+  },
   "devDependencies": {
-    "@plone/scripts": "^2.2.1"
+    "@plone/scripts": "^2.2.1",
+    "eslint-plugin-prettier": "3.1.3",
+    "prettier": "2.0.5",
+    "release-it": "14.7.0",
+    "stylelint": "14.0.1",
+    "stylelint-config-idiomatic-order": "8.1.0",
+    "stylelint-config-prettier": "8.0.1",
+    "stylelint-prettier": "1.1.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack-cli": "^4.10.0"
   },
   "packageManager": "yarn@3.2.3"
 }
