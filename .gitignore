@@ -1,4 +1,5 @@
 node_modules
+addon-testing-project
 
 # yarn 3
 .pnp.*
