@@ -157,6 +157,7 @@ class ImageEdit extends Component {
         ) : (
           <ImageWidget
             {...this.props}
+            inline
             // Since we are using a component that has a widget interface
             // we need to adapt its props to it
             id="url"
