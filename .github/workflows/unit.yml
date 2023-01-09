@@ -1,0 +1,41 @@
+name: Unit tests
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+        python-version: [3.8]
+    env:
+        GIT_NAME: volto-image-block
+        NAMESPACE: "@kitconcept"
+        GIT_USER: 'kitconcept'
+    steps:
+      - name: Main checkout
+        uses: actions/checkout@v2
+
+      # node setup
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      # node install
+      - name: Install dependencies
+        run: yarn
+
+      - name: Install yo and @plone/generator-volto
+        run: npm i -g yo @plone/generator-volto
+
+      - name: Extract branch name
+        run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Setup addon testing environment
+        run: npx -p @plone/scripts addon clone .
+
+      # Unit tests
+      - name: Unit tests
+        run: cd addon-testing-project && CI=true yarn test
