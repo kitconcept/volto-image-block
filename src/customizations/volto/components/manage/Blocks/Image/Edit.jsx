@@ -84,7 +84,7 @@ class ImageEdit extends Component {
    */
   render() {
     const { block, data, onChangeBlock } = this.props;
-    const Img = config.getComponent('Img').component;
+    const Img = config.getComponent('Image').component;
     // Note defaultScale will be deprecated from Img component
     // Since we have srcset, it has no importance other than
     // the original image should never be used.
