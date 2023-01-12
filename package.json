@@ -11,17 +11,21 @@
     "react"
   ],
   "scripts": {
-    "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon"
+    "i18n": "rm -rf build/messages && NODE_ENV=production i18n --addon",
+    "dry-release": "release-it --dry-run",
+    "release": "release-it",
+    "release-major-alpha": "release-it major --preRelease=alpha",
+    "release-alpha": "release-it --preRelease=alpha"
   },
   "dependencies": {
     "blurhash": "1.1.5",
     "fast-blurhash": "1.0.1"
   },
   "devDependencies": {
-    "@plone/scripts": "^2.2.1",
+    "@plone/scripts": "^2.2.2",
     "eslint-plugin-prettier": "3.1.3",
     "prettier": "2.0.5",
-    "release-it": "14.7.0",
+    "release-it": "^15.6.0",
     "stylelint": "14.0.1",
     "stylelint-config-idiomatic-order": "8.1.0",
     "stylelint-config-prettier": "8.0.1",
