@@ -11,7 +11,7 @@ const applyConfig = (config) => {
   };
 
   config.registerComponent({
-    name: 'Img',
+    name: 'Image',
     component: Img,
   });
 
