@@ -79,7 +79,7 @@ The defaults can also be specified in Volto's config.js file, full example with
 all options (but only the ones you indend to change have to be provided):
 
 ```js
-  config.settings.scrSetOptions = {
+  config.settings.srcSetOptions = {
     enabled: true,
     isLocal: (src) => true,
     preprocessSrc: (src) =>
@@ -115,7 +115,7 @@ So providing at least these two in config is desired.
 ```js
   import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 
-  config.settings.scrSetOptions = {
+  config.settings.srcSetOptions = {
     isLocal: isInternalURL,
     preprocessSrc: (src) =>
       flattenToAppURL(
