@@ -3,7 +3,7 @@ import AnyLoader from './AnyLoader';
 import makeSrcSet from './makeSrcSet';
 import makeBlurhash from './makeBlurhash';
 import extendProps from './extendProps';
-
+import srcSetDefaultOptionsVolto from './srcSetDefaultOptionsVolto';
 /*
 
 A React component Img.
@@ -209,6 +209,8 @@ Following this, the scales can be set directly as a property on the Img componen
 />
 ```
 
+A second option is to use a `src` property which is an object itself. In this case the `scale` and `defaultScale` properties become optional. See below.
+
 # `placeholder` property
 
 The placeholder property can be a single element or a list of
@@ -265,6 +267,51 @@ Example for Volto icon:
       title={'plone-svg'}
      />
    )}
+/>
+```
+
+# `src` property as object
+
+The `src` property can accept an object instead of the string, that contains the full information regarding and image, including all scale information needed to generate the source and the source sets for the markup.
+
+In this case the `scale` property can be entirely omitted.
+
+The `defaultScale` property is also optional. If omitted, the download image will be used as the image source. If you specifically want a scaled image as the `src` property of the markup image, you are free to specify `defaultScale`. This only affects the generation of the `src` property and does not affect how the source sets are generated.
+
+Since this uses specific (unstructured) json data provided by the backend, this only works with the exact data provided, and it only supports the following use cases:
+
+## Image information about a block image
+
+Example for using this in practice, to show an image with source sets and blurhash (example taken from the image block view):
+
+```jsx
+<Img
+  loading="lazy"
+  src={data}
+  width="1440"
+  height="810"
+  alt={data.alt || ""}
+  blurhash={data.image_scales?.image?.[0]?.blurhash}
+/>
+```
+
+## Image information about a content image
+
+Example for using this in practice, to show an image with source sets and blurhash (example taken from the image content type view):
+
+```jsx
+<Img
+  width={content.image?.width}
+  height={content.image?.height}
+  alt={content.alt_tag}
+  src={content.image}
+  defaultScale="fullscreen"
+  blurhash={content.blurhash}
+  blurhashOptions={{
+    // override default width 100%
+    style: {},
+  }}
+  style={{ maxWidth: "100%", height: "auto" }}
 />
 ```
 
@@ -346,7 +393,10 @@ Further generalization on the resizing strategy would be possible, once the need
 
  */
 
-export default ({ blurhashOptions, ...props }) => {
+const imgFactory = (srcSetDefaultOptions) => ({
+  blurhashOptions,
+  ...props
+}) => {
   const placeholderExtraStyleRef = useRef({});
   props = extendProps(
     props,
@@ -355,7 +405,10 @@ export default ({ blurhashOptions, ...props }) => {
   return AnyLoader({
     ...props,
     createComponent: ({ srcSetOptions, ...props }, children) => {
-      props = extendProps(props, makeSrcSet(srcSetOptions).fromProps(props));
+      props = extendProps(
+        props,
+        makeSrcSet(srcSetOptions, srcSetDefaultOptions).fromProps(props),
+      );
       if (children !== undefined) {
         throw new Error('Children are not allowed in <Img>');
       }
@@ -363,3 +416,11 @@ export default ({ blurhashOptions, ...props }) => {
     },
   });
 };
+
+// tests assume the Volto-independent defaults that come with the component
+export const ImgForTesting = imgFactory();
+
+// default export is furnished with Volto default options
+const ImgWithVoltoOptions = imgFactory(srcSetDefaultOptionsVolto);
+
+export default ImgWithVoltoOptions;

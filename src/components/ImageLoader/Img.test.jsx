@@ -1,6 +1,6 @@
 import React from 'react';
 import { create, act } from 'react-test-renderer';
-import Img from './Img';
+import { ImgForTesting as Img } from './Img';
 import { describeAnyLoader, expectWrapper } from './AnyLoader.test';
 import config from '@plone/volto/registry';
 import makeSrcSet from './makeSrcSet';

@@ -90,6 +90,26 @@ describe('makeSrcSet', () => {
         ).toEqual('/foo/bar.jpg/+++/NOSUCH');
       });
     });
+    describe('no default scale', () => {
+      test('default', () => {
+        // createNoDefaultScale is not present, by the default fixture this gives the
+        // url back
+        expect(
+          makeSrcSet().fromProps({
+            src: '/foo/bar.jpg',
+          }).src,
+        ).toBe(undefined);
+      });
+      test('with custom createNoDefaultScaleSrc', () => {
+        expect(
+          makeSrcSet({
+            createNoDefaultScaleSrc: (url) => `${url}/+++/DEFAULT`,
+          }).fromProps({
+            src: '/foo/bar.jpg',
+          }).src,
+        ).toEqual('/foo/bar.jpg/+++/DEFAULT');
+      });
+    });
     test('regular', () => {
       expect(
         makeSrcSet().fromProps({ src: '/foo/bar.jpg', defaultScale: 'huge' })
@@ -259,6 +279,110 @@ describe('makeSrcSet', () => {
     });
   });
 
+  describe('defaultOptions', () => {
+    test('scales', () => {
+      const defaultOptions = {
+        scales: {
+          large: 800,
+          great: 1200,
+        },
+      };
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({ src: '/foo/bar.jpg' })
+          .srcSet,
+      ).toEqual([
+        '/foo/bar.jpg/@@images/image/large 800w',
+        '/foo/bar.jpg/@@images/image/great 1200w',
+      ]);
+    });
+    test('maxWidth', () => {
+      const defaultOptions = {
+        maxWidth: 600,
+      };
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({ src: '/foo/bar.jpg' })
+          .srcSet,
+      ).toEqual([
+        '/foo/bar.jpg/@@images/image/icon 32w',
+        '/foo/bar.jpg/@@images/image/tile 64w',
+        '/foo/bar.jpg/@@images/image/thumb 128w',
+        '/foo/bar.jpg/@@images/image/mini 200w',
+        '/foo/bar.jpg/@@images/image/preview 400w',
+        '/foo/bar.jpg/@@images/image/teaser 600w',
+      ]);
+    });
+    test('minWidth', () => {
+      const defaultOptions = {
+        minWidth: 400,
+      };
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({ src: '/foo/bar.jpg' })
+          .srcSet,
+      ).toEqual([
+        '/foo/bar.jpg/@@images/image/preview 400w',
+        '/foo/bar.jpg/@@images/image/teaser 600w',
+        '/foo/bar.jpg/@@images/image/large 800w',
+        '/foo/bar.jpg/@@images/image/great 1200w',
+        '/foo/bar.jpg/@@images/image/huge 1600w',
+      ]);
+    });
+    test('minWidth and maxWidth', () => {
+      const defaultOptions = {
+        minWidth: 400,
+        maxWidth: 600,
+      };
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({ src: '/foo/bar.jpg' })
+          .srcSet,
+      ).toEqual([
+        '/foo/bar.jpg/@@images/image/preview 400w',
+        '/foo/bar.jpg/@@images/image/teaser 600w',
+      ]);
+    });
+    test('enabled', () => {
+      const defaultOptions = {
+        enabled: false,
+      };
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({ src: '/foo/bar.jpg' })
+          .srcSet,
+      ).toEqual(undefined);
+    });
+    test('createMissingScaleSrc', () => {
+      const defaultOptions = {
+        createMissingScaleSrc: (url, defaultScale) =>
+          `${url}/+++/${defaultScale}`,
+      };
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({
+          src: '/foo/bar.jpg',
+          defaultScale: 'NOSUCH',
+        }).src,
+      ).toEqual('/foo/bar.jpg/+++/NOSUCH');
+    });
+    test('config overrides default options', () => {
+      const defaultOptions = {
+        scales: {
+          large: 100,
+          great: 200,
+        },
+      };
+      Object.assign(options, {
+        scales: {
+          large: 800,
+          great: 1200,
+        },
+      });
+      expect(
+        makeSrcSet({}, defaultOptions).fromProps({ src: '/foo/bar.jpg' })
+          .srcSet,
+      ).toEqual([
+        '/foo/bar.jpg/@@images/image/large 800w',
+        '/foo/bar.jpg/@@images/image/great 1200w',
+      ]);
+    });
+  });
+
   describe('isLocal wrt srcset', () => {
     const result = [
       '/foo/bar.jpg/@@images/image/icon 32w',
@@ -383,6 +507,42 @@ describe('makeSrcSet', () => {
           .src,
       ).toEqual('[/foo/bar.jpg-huge]');
       expect(createScaledSrc).toHaveBeenCalledTimes(result.length + 1);
+    });
+  });
+
+  describe('createNoDefaultScaleSrc', () => {
+    let createNoDefaultScaleSrc = jest.fn((src) => `[${src}-DOWNLOAD]`);
+    test('works for src', () => {
+      const src = '/foo/bar.jpg';
+      expect(
+        makeSrcSet({ createNoDefaultScaleSrc }).fromProps({
+          src,
+        }).src,
+      ).toEqual('[/foo/bar.jpg-DOWNLOAD]');
+      expect(createNoDefaultScaleSrc).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('getScalesFromProps', () => {
+    const result = [
+      '/foo/bar.jpg/@@images/image/large 800w',
+      '/foo/bar.jpg/@@images/image/great 1200w',
+    ];
+    let getScalesFromProps = jest.fn(({ src, scales }) => ({
+      large: 800,
+      great: 1200,
+    }));
+    test('works', () => {
+      const src = '/foo/bar.jpg';
+      const scales = 'SCALES';
+      expect(
+        makeSrcSet({ getScalesFromProps }).fromProps({
+          src,
+          scales,
+        }).srcSet,
+      ).toEqual(result);
+      expect(getScalesFromProps).toHaveBeenCalledTimes(1);
+      expect(getScalesFromProps).toHaveBeenCalledWith({ src, scales });
     });
   });
 
