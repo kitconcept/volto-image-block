@@ -3,6 +3,7 @@ export const blockDataSample1 = {
   align: 'center',
   credit: {},
   id: 'ad43f059-fab9-4b7b-b49f-d4ec1fb6e3fc',
+  image_field: 'image',
   image_scales: {
     image: [
       {
@@ -73,6 +74,7 @@ export const blockDataSample2 = {
   align: 'center',
   credit: {},
   id: 'ad43f059-fab9-4b7b-b49f-d4ec1fb6e3fc',
+  image_field: 'image',
   image_scales: {
     image: [
       {

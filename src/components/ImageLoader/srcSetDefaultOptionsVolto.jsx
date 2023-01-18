@@ -1,8 +1,9 @@
 import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 
 // Acquire server data for a block
+const blockDataSrcGet = (src) => src?.image_scales?.[src?.image_field]?.[0];
 export const blockDataSrc = {
-  test: (src) => typeof src?.image_scales?.image?.[0]?.scales === 'object',
+  test: (src) => typeof blockDataSrcGet(src)?.scales === 'object',
   isLocal: (src) => isInternalURL(src.url),
   preprocessSrc: (src) => ({
     ...src,
@@ -12,13 +13,13 @@ export const blockDataSrc = {
       ),
     },
   }),
-  getScalesFromProps: ({ src, scales }) => src.image_scales.image[0].scales,
+  getScalesFromProps: ({ src, scales }) => blockDataSrcGet(src).scales,
   createScaledSrc: (src, scaleName, scaleData) => ({
     url: `${src.__cache.prefix}/${scaleData.download}`,
     width: scaleData.width,
   }),
   createNoDefaultScaleSrc: (src) =>
-    flattenToAppURL(`${src.url}/${src.image_scales.image[0].download}`),
+    flattenToAppURL(`${src.url}/${blockDataSrcGet(src).download}`),
 };
 
 // Acquire server data for an image instance
