@@ -141,6 +141,85 @@ export const blockDataSample2 = {
   url: 'http://localhost:3000/example/image-2',
 };
 
+export const blockDataSample3 = {
+  // Teaser from object browser has @id instead of url
+  '@id': 'http://localhost:3000/example/teaser-block/image',
+  '@type': 'Document',
+  Description:
+    'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
+  Title: 'Headline H2',
+  effective: '2022-12-15T13:28:23+00:00',
+  getObjSize: '929.3 KB',
+  getRemoteUrl: null,
+  hasPreviewImage: true,
+  head_title: null,
+  image_field: 'preview_image',
+  image_scales: {
+    preview_image: [
+      {
+        'content-type': 'image/jpeg',
+        download:
+          '@@images/preview_image-1126-1a01db87b603934db947bb1d72a06ed8.jpeg',
+        filename: 'bfs-image-2.jpg',
+        height: 1126,
+        scales: {
+          icon: {
+            download:
+              '@@images/preview_image-32-55bf93d1a340ed478f81be2833a71993.jpeg',
+            height: 32,
+            width: 32,
+          },
+          large: {
+            download:
+              '@@images/preview_image-800-eb3aebd2b90ad5b03fcbdcef0be0beb5.jpeg',
+            height: 800,
+            width: 800,
+          },
+          larger: {
+            download:
+              '@@images/preview_image-1000-aa0b59eca1a9b588993187796d29e491.jpeg',
+            height: 1000,
+            width: 1000,
+          },
+          mini: {
+            download:
+              '@@images/preview_image-200-87345416346beb71801c3e0e6274125c.jpeg',
+            height: 200,
+            width: 200,
+          },
+          preview: {
+            download:
+              '@@images/preview_image-400-2df9d934007070e332dcb58d0d42be2f.jpeg',
+            height: 400,
+            width: 400,
+          },
+          teaser: {
+            download:
+              '@@images/preview_image-600-84157b40fce66bd541a0876f5534c125.jpeg',
+            height: 600,
+            width: 600,
+          },
+          thumb: {
+            download:
+              '@@images/preview_image-128-b0e482c9def76f77ef514904bc0a567b.jpeg',
+            height: 128,
+            width: 128,
+          },
+          tile: {
+            download:
+              '@@images/preview_image-64-0c3b9155a1112aaaf093e722f926fcb3.jpeg',
+            height: 64,
+            width: 64,
+          },
+        },
+        size: 951578,
+        width: 1126,
+      },
+    ],
+  },
+  mime_type: 'text/plain',
+  title: 'Headline H2',
+};
 export const contentDataSample1 = {
   'content-type': 'image/png',
   download:

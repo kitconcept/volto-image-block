@@ -30,6 +30,9 @@ describe('srcSetDefaultOptionsVolto', () => {
       expect(srcSetDefaultOptionsVolto.isLocal(testData.blockDataSample2)).toBe(
         true,
       );
+      expect(srcSetDefaultOptionsVolto.isLocal(testData.blockDataSample3)).toBe(
+        true,
+      );
       expect(
         processors.blockDataSrc.isLocal({ url: 'http://foo.bar/image.png' }),
       ).toBe(false);
@@ -92,6 +95,61 @@ describe('srcSetDefaultOptionsVolto', () => {
           width: 64,
         },
       });
+      expect(
+        srcSetDefaultOptionsVolto.getScalesFromProps({
+          src: testData.blockDataSample3,
+          scales: 'ANYTHING',
+        }),
+      ).toEqual({
+        icon: {
+          download:
+            '@@images/preview_image-32-55bf93d1a340ed478f81be2833a71993.jpeg',
+          height: 32,
+          width: 32,
+        },
+        large: {
+          download:
+            '@@images/preview_image-800-eb3aebd2b90ad5b03fcbdcef0be0beb5.jpeg',
+          height: 800,
+          width: 800,
+        },
+        larger: {
+          download:
+            '@@images/preview_image-1000-aa0b59eca1a9b588993187796d29e491.jpeg',
+          height: 1000,
+          width: 1000,
+        },
+        mini: {
+          download:
+            '@@images/preview_image-200-87345416346beb71801c3e0e6274125c.jpeg',
+          height: 200,
+          width: 200,
+        },
+        preview: {
+          download:
+            '@@images/preview_image-400-2df9d934007070e332dcb58d0d42be2f.jpeg',
+          height: 400,
+          width: 400,
+        },
+        teaser: {
+          download:
+            '@@images/preview_image-600-84157b40fce66bd541a0876f5534c125.jpeg',
+          height: 600,
+          width: 600,
+        },
+        thumb: {
+          download:
+            '@@images/preview_image-128-b0e482c9def76f77ef514904bc0a567b.jpeg',
+          height: 128,
+          width: 128,
+        },
+        tile: {
+          download:
+            '@@images/preview_image-64-0c3b9155a1112aaaf093e722f926fcb3.jpeg',
+          height: 64,
+          width: 64,
+        },
+      });
     });
     describe('createScaledSrc', () => {
       const testCreateScaledSrc = (blockDataSample, result) => () => {
@@ -120,6 +178,14 @@ describe('srcSetDefaultOptionsVolto', () => {
           width: 800,
         }),
       );
+      test(
+        'blockDataSample3 teaser',
+        testCreateScaledSrc(testData.blockDataSample3, {
+          url:
+            '/example/teaser-block/image/@@images/preview_image-800-eb3aebd2b90ad5b03fcbdcef0be0beb5.jpeg',
+          width: 800,
+        }),
+      );
     });
     test('createNoDefaultScaleSrc', () => {
       expect(
@@ -128,6 +194,13 @@ describe('srcSetDefaultOptionsVolto', () => {
         ),
       ).toBe(
         '/example/image-2/@@images/image-1126-7bb80db0a452739fa96a97d3c6517495.jpeg',
+      );
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.blockDataSample3,
+        ),
+      ).toBe(
+        '/example/teaser-block/image/@@images/preview_image-1126-1a01db87b603934db947bb1d72a06ed8.jpeg',
       );
     });
   });
