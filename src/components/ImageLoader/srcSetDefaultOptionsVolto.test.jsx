@@ -3,7 +3,6 @@ import * as processors from './srcSetDefaultOptionsVolto';
 import * as testData from './test-data';
 
 jest.mock('@plone/volto/helpers', () => {
-  const original = jest.requireActual('@plone/volto/helpers');
   return {
     __esModule: true,
     flattenToAppURL: jest.fn((url) =>
