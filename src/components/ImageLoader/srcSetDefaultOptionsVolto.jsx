@@ -1,9 +1,11 @@
 import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 
 // Acquire server data for a block
-const blockDataSrcGet = (src) => src?.image_scales?.[src?.image_field]?.[0];
+const blockDataSrcGet = (src) =>
+  src?.image_scales?.[src?.image_scales?.image_field]?.[0];
+//
 export const blockDataSrc = {
-  test: (src) => typeof blockDataSrcGet(src)?.scales === 'object',
+  test: (src) => typeof blockDataSrcGet(src).scales === 'object',
   isLocal: (src) => isInternalURL(src.url),
   preprocessSrc: (src) => ({
     ...src,

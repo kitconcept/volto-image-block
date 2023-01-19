@@ -3,6 +3,7 @@ import * as processors from './srcSetDefaultOptionsVolto';
 import * as testData from './test-data';
 
 jest.mock('@plone/volto/helpers', () => {
+  const original = jest.requireActual('@plone/volto/helpers');
   return {
     __esModule: true,
     flattenToAppURL: jest.fn((url) =>
@@ -99,7 +100,8 @@ describe('srcSetDefaultOptionsVolto', () => {
           srcSetDefaultOptionsVolto.createScaledSrc(
             srcSetDefaultOptionsVolto.preprocessSrc(blockDataSample),
             'large',
-            blockDataSample.image_scales.image[0].scales.large,
+            blockDataSample.image_scales[blockDataSample.image_field][0].scales
+              .large,
           ),
         ).toEqual(result);
       };
