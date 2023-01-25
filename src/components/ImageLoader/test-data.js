@@ -220,6 +220,78 @@ export const blockDataSample3 = {
   mime_type: 'text/plain',
   title: 'Headline H2',
 };
+
+export const blockDataSample4 = {
+  '@type': 'image',
+  align: 'center',
+  credit: {},
+  id: 'ad43f059-fab9-4b7b-b49f-d4ec1fb6e3fc',
+  // missing image_field
+  image_scales: {
+    image: [
+      {
+        'content-type': 'image/jpeg',
+        download: '@@images/image-1126-7bb80db0a452739fa96a97d3c6517495.jpeg',
+        filename: 'image-light.jpg',
+        height: 633,
+        scales: {
+          icon: {
+            download: '@@images/image-32-d5575b5e0795407436104a16e18ebd41.jpeg',
+            height: 17,
+            width: 32,
+          },
+          large: {
+            download:
+              '@@images/image-800-9c8a61153197fca732c86aa1f2091cb3.jpeg',
+            height: 449,
+            width: 800,
+          },
+          larger: {
+            download:
+              '@@images/image-1000-36afc44f7c991c35735f3338e76bc0a7.jpeg',
+            height: 562,
+            width: 1000,
+          },
+          mini: {
+            download:
+              '@@images/image-200-6f2dd5c028b4fbf2c975d98f42077678.jpeg',
+            height: 112,
+            width: 200,
+          },
+          preview: {
+            download:
+              '@@images/image-400-4abbad67754c69a7af7a1b91d78e680e.jpeg',
+            height: 224,
+            width: 400,
+          },
+          teaser: {
+            download:
+              '@@images/image-600-705867124c8790a0fc7d4c799e506c2e.jpeg',
+            height: 337,
+            width: 600,
+          },
+          thumb: {
+            download:
+              '@@images/image-128-eebe3707668d4cd3752626c026191ca0.jpeg',
+            height: 71,
+            width: 128,
+          },
+          tile: {
+            download: '@@images/image-64-0ea29ecf0ed3720e590d849dcbda5834.jpeg',
+            height: 35,
+            width: 64,
+          },
+        },
+        size: 475285,
+        width: 1126,
+      },
+    ],
+  },
+  size: 'l',
+  title: 'Headline H2 ',
+  url: '/example/image-2',
+};
+
 export const contentDataSample1 = {
   'content-type': 'image/png',
   download:
