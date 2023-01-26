@@ -32,7 +32,7 @@ const ImageView = ({ content }) => {
           <Image
             width={content.image?.width}
             height={content.image?.height}
-            alt={content.alt_tag}
+            alt={content.alt_tag || ''}
             src={content.image}
             blurhash={content.blurhash}
             blurhashOptions={{
