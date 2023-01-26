@@ -84,20 +84,7 @@ class ImageEdit extends Component {
    */
   render() {
     const { block, data, onChangeBlock } = this.props;
-    const Img = config.getComponent('Image').component;
-    // Note defaultScale will be deprecated from Img component
-    // Since we have srcset, it has no importance other than
-    // the original image should never be used.
-    const defaultScale =
-      data.align === 'full'
-        ? 'fullscreen'
-        : data.size === 'l'
-        ? 'huge'
-        : data.size === 'm'
-        ? 'preview'
-        : data.size === 's'
-        ? 'mini'
-        : 'huge';
+    const Image = config.getComponent('Image').component;
 
     const dataAdapter = config.getComponent({
       name: 'dataAdapter',
@@ -132,12 +119,10 @@ class ImageEdit extends Component {
               },
             )}
           >
-            <Img
+            <Image
               loading="lazy"
-              src={data.url}
+              src={data}
               alt={data.alt || ''}
-              defaultScale={defaultScale}
-              scales={data.image_scales?.image?.[0]?.scales}
               blurhash={data.image_scales?.image?.[0]?.blurhash}
             />
             <Caption
