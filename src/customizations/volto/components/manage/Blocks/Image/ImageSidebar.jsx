@@ -5,18 +5,14 @@ import { useIntl, FormattedMessage } from 'react-intl';
 import { BlockDataForm, Icon } from '@plone/volto/components';
 import { isInternalURL, flattenToAppURL } from '@plone/volto/helpers';
 import { ImageSchema } from '@plone/volto/components/manage/Blocks/Image/schema';
-import config from '@plone/volto/registry';
 
 import imageSVG from '@plone/volto/icons/image.svg';
 
 const ImageSidebar = (props) => {
-  const { data, block, onChangeBlock } = props;
+  const { data, block, blocksConfig, onChangeBlock } = props;
   const intl = useIntl();
   const schema = ImageSchema({ formData: data, intl });
-  const dataAdapter = config.getComponent({
-    name: 'dataAdapter',
-    dependencies: ['Image', 'BlockData'],
-  }).component;
+  const dataAdapter = blocksConfig[data['@type']].dataAdapter;
 
   return (
     <>

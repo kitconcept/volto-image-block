@@ -8,17 +8,12 @@ const applyConfig = (config) => {
   config.blocks.blocksConfig.image = {
     ...config.blocks.blocksConfig.image,
     schemaEnhancer: imageBlockSchemaEnhancer,
+    dataAdapter: ImageBlockDataAdapter,
   };
 
   config.registerComponent({
     name: 'Image',
     component: Img,
-  });
-
-  config.registerComponent({
-    name: 'dataAdapter',
-    dependencies: ['Image', 'BlockData'],
-    component: ImageBlockDataAdapter,
   });
 
   config.widgets.widget.image = ImageWidget;
