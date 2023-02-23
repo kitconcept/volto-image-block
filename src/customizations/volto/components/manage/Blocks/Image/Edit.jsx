@@ -83,13 +83,9 @@ class ImageEdit extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    const { block, data, onChangeBlock } = this.props;
+    const { block, blocksConfig, data, onChangeBlock } = this.props;
     const Image = config.getComponent('Image').component;
-
-    const dataAdapter = config.getComponent({
-      name: 'dataAdapter',
-      dependencies: ['Image', 'BlockData'],
-    }).component;
+    const dataAdapter = blocksConfig[data['@type']].dataAdapter;
 
     return (
       <div
