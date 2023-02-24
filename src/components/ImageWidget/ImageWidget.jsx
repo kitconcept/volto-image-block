@@ -65,7 +65,7 @@ const ImageWidget = (props) => {
   useEffect(() => {
     if (loading && requestLoaded && uploading) {
       setUploading(false);
-      onChange(id, urlUploaded, content);
+      onChange(id, urlUploaded);
     }
   }, [id, urlUploaded, requestLoaded, loading, uploading, onChange]);
 
