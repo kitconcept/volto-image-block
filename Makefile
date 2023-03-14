@@ -22,7 +22,7 @@ RESET=`tput sgr0`
 YELLOW=`tput setaf 3`
 
 PLONE_VERSION=6
-VOLTO_VERSION=16.15.0
+VOLTO_VERSION=16.16.0
 
 ADDON_NAME='@kitconcept/volto-image-block'
 ADDON_PATH='volto-image-block'
