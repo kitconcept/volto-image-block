@@ -1480,7 +1480,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kitconcept/volto-image-block@workspace:."
   dependencies:
-    "@plone/scripts": ^2.2.2
+    "@plone/scripts": ^2.3.0
     blurhash: 1.1.5
     eslint-plugin-prettier: 3.1.3
     fast-blurhash: 1.0.1
@@ -1669,9 +1669,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@plone/scripts@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "@plone/scripts@npm:2.2.2"
+"@plone/scripts@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@plone/scripts@npm:2.3.0"
   dependencies:
     babel-plugin-react-intl: 5.1.17
     babel-preset-razzle: 4.2.17
@@ -1686,7 +1686,7 @@ __metadata:
     addon: addon/index.js
     changelogupdater: changelogupdater.cjs
     i18n: i18n.cjs
-  checksum: 33d63c1d0fe096984aa3a37b0842f65f13ef84065ffa88f66b6ada38c73a545f2236c8d24987881c50be36c903ec4b96bf5dc63dc3e4409985174efc122f737a
+  checksum: 32dbbe4f9233e8d9b16ffc451c42d4753907b3f700665a4bed796c5642194890d8bda21deddd3d1efb1559df288b29c69d32cf7437f6f4ef0a5113722b6b79ba
   languageName: node
   linkType: hard
 

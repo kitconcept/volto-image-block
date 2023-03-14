@@ -20,14 +20,12 @@ jobs:
       - name: Install pipx
         run: pip install towncrier
 
-      # node setup
       - name: Use Node.js ${{ env.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.node-version }}
           cache: 'yarn'
 
-      # node install
       - name: Install dependencies
         run: yarn
 
