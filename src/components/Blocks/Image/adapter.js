@@ -46,7 +46,7 @@ export const ImageBlockDataAdapter = ({
       credit: { data: item?.credit },
       description: item?.Description,
       title: item?.Title,
-      image_scales: item?.image_scales || {},
+      image_scales: item?.image_scales,
     };
   }
   onChangeBlock(block, dataSaved);

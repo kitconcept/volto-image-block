@@ -117,7 +117,12 @@ class ImageEdit extends Component {
           >
             <Image
               loading="lazy"
-              src={data}
+              // TODO: Improve this, please
+              src={
+                data.image_scales
+                  ? data
+                  : `${flattenToAppURL(data.url)}/@@images/image`
+              }
               alt={data.alt || ''}
               blurhash={data.image_scales?.image?.[0]?.blurhash}
             />
