@@ -22,7 +22,7 @@ RESET=`tput sgr0`
 YELLOW=`tput setaf 3`
 
 PLONE_VERSION=6
-VOLTO_VERSION=16.16.0
+VOLTO_VERSION=16.15.0
 
 ADDON_NAME='@kitconcept/volto-image-block'
 ADDON_PATH='volto-image-block'
@@ -84,7 +84,7 @@ format: ## Format codebase
 lint: ## Lint Codebase
 	${DOCKER_COMPOSE} run addon-dev lint
 	${DOCKER_COMPOSE} run addon-dev prettier
-	${DOCKER_COMPOSE} run addon-dev stylelint
+	${DOCKER_COMPOSE} run addon-dev stylelint --allow-empty-input
 
 .PHONY: test
 test: ## Run unit tests
@@ -123,3 +123,7 @@ stop-test-acceptance-server: ## Stop acceptance server
 .PHONY: status-test-acceptance-server
 status-test-acceptance-server: ## Status of Acceptance Server
 	${ACCEPTANCE} ps
+
+.PHONY: debug-frontend
+debug-frontend:  ## Run bash in the Frontend container
+	${DOCKER_COMPOSE} run --entrypoint bash addon-dev
