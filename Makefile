@@ -22,7 +22,7 @@ RESET=`tput sgr0`
 YELLOW=`tput setaf 3`
 
 PLONE_VERSION=6
-VOLTO_VERSION=16.16.0
+VOLTO_VERSION=17.0.0-alpha.1
 
 ADDON_NAME='@kitconcept/volto-image-block'
 ADDON_PATH='volto-image-block'
@@ -127,3 +127,4 @@ status-test-acceptance-server: ## Status of Acceptance Server
 .PHONY: debug-frontend
 debug-frontend:  ## Run bash in the Frontend container
 	${DOCKER_COMPOSE} run --entrypoint bash addon-dev
+

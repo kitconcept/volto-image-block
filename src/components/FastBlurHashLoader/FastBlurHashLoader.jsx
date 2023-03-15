@@ -1,6 +1,5 @@
-/* eslint-disable import/no-webpack-loader-syntax */
-// eslint-disable-next-line import/no-unresolved
-import FastBlurHashLoaderJS from 'raw-loader!../ImageLoader/dist/fast-blurhash.min.js';
+// We load the js but Webpack will load it raw, see `razzle.extend.js`
+import FastBlurHashLoaderJS from '../ImageLoader/dist/fast-blurhash.min.js';
 
 const FastBlurHashLoader = () => {
   return <script dangerouslySetInnerHTML={{ __html: FastBlurHashLoaderJS }} />;
