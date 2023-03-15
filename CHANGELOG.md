@@ -8,6 +8,13 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.0 (2023-03-15)
+
+### Breaking
+
+- Suport for Volto 17, Node 18 and fastblurhash working in webpack5. Support for Webpack 5 means this can only work in Volto >=17 @sneridagh [#10](https://github.com/kitconcept/volto-export/pull/10)
+
+
 ## 0.2.0 (2023-03-14)
 
 ### Feature
