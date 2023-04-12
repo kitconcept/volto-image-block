@@ -2,7 +2,12 @@
 import FastBlurHashLoaderJS from '../ImageLoader/dist/fast-blurhash.min.js';
 
 const FastBlurHashLoader = () => {
-  return <script dangerouslySetInnerHTML={{ __html: FastBlurHashLoaderJS }} />;
+  return (
+    <script
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: FastBlurHashLoaderJS }}
+    />
+  );
 };
 
 export default FastBlurHashLoader;
