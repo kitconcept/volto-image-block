@@ -2,7 +2,6 @@
  * Image/video caption component.
  * @module components/Image/Caption
  */
-import { defineMessages, useIntl } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { UniversalLink } from '@plone/volto/components';
@@ -28,7 +27,6 @@ const Caption = ({
   downloadFilename,
 }) => {
   const As = as;
-  const intl = useIntl();
 
   return (
     <As>
