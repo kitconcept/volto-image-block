@@ -8,6 +8,14 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.1 (2023-06-08)
+
+### Bugfix
+
+- Fix hydration warning in console. @sneridagh [#11](https://github.com/kitconcept/volto-export/pull/11)
+- Remove project-specific code in Caption component. @davisagli [#13](https://github.com/kitconcept/volto-export/pull/13)
+
+
 ## 1.0.0 (2023-03-15)
 
 ### Breaking

@@ -1,6 +1,6 @@
 {
   "name": "@kitconcept/volto-image-block",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "volto-image-block: Volto add-on",
   "main": "src/index.js",
   "license": "MIT",
