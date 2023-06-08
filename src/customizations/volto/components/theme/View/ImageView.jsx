@@ -45,7 +45,6 @@ const ImageView = ({ content }) => {
             title={content.title}
             description={content.description}
             credit={content.credit?.data}
-            shows_people={content.shows_people}
             downloadFilename={content.title}
             downloadHref={
               content.allow_image_download &&
@@ -80,7 +79,6 @@ ImageView.propTypes = {
     }),
     // BEGIN CUSTOMIZATION
     allow_image_download: PropTypes.bool,
-    shows_people: PropTypes.bool,
     credit: PropTypes.shape({
       data: PropTypes.string,
     }),
