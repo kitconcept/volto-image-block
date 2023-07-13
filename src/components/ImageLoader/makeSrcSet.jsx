@@ -1,6 +1,6 @@
 const config = require('@plone/volto/registry').default;
 
-const makeSrcSet = (options, defaultOptions = undefined) => {
+const makeSrcSet = (options) => {
   if (options && options.hasOwnProperty('fromProps')) {
     // If already a cooked object - just use it.
     options = options.options;
@@ -18,8 +18,6 @@ const makeSrcSet = (options, defaultOptions = undefined) => {
         }),
         createMissingScaleSrc: (src, scaleName) =>
           `${src}/@@images/image/${scaleName}`,
-        createNoDefaultScaleSrc: (src) => undefined,
-        getScalesFromProps: ({ src, scales }) => scales,
         minWidth: 0,
         maxWidth: Infinity,
         scales: {
@@ -37,7 +35,6 @@ const makeSrcSet = (options, defaultOptions = undefined) => {
           huge: 1600,
         },
       },
-      defaultOptions,
       config.settings.srcSetOptions,
       options,
     );
@@ -51,22 +48,18 @@ const makeSrcSet = (options, defaultOptions = undefined) => {
         preprocessSrc,
         createScaledSrc,
         createMissingScaleSrc,
-        createNoDefaultScaleSrc,
-        getScalesFromProps,
       } = this.options;
       const result = {};
       if (enabled && isLocal(src)) {
+        src = preprocessSrc(src);
         if (scales) {
           result.scales = undefined;
-        }
-        scales = getScalesFromProps({ src, scales });
-        if (!scales) {
+        } else {
           scales = this.options.scales;
         }
         if (typeof scales !== 'object') {
           throw new Error('The scales option and property must be an object');
         }
-        src = preprocessSrc(src);
         let scaledSrcList = Object.keys(scales).map((scaleName) =>
           createScaledSrc(src, scaleName, scales[scaleName]),
         );
@@ -91,12 +84,6 @@ const makeSrcSet = (options, defaultOptions = undefined) => {
             result.src = createMissingScaleSrc(src, defaultScale);
           }
           result.defaultScale = undefined;
-        } else {
-          // No default scale?
-          const newSrc = createNoDefaultScaleSrc(src);
-          if (newSrc !== undefined) {
-            result.src = newSrc;
-          }
         }
       } else {
         // remove special properties in all cases
