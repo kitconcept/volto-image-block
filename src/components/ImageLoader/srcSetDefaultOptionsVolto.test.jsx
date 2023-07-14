@@ -272,6 +272,94 @@ describe('srcSetDefaultOptionsVolto', () => {
       );
     });
   });
+  describe('blockDataNoScalesSrc', () => {
+    test('test', () => {
+      expect(
+        processors.blockDataSrc.test(testData.blockDataSampleNoScales1),
+      ).toEqual(false);
+      expect(
+        processors.blockDataSrc.test(testData.blockDataSampleNoScales2),
+      ).toEqual(false);
+      expect(
+        processors.blockDataNoScalesSrc.test(testData.blockDataNoScalesSample1),
+      ).toEqual(true);
+      expect(
+        processors.blockDataNoScalesSrc.test(testData.blockDataNoScalesSample2),
+      ).toEqual(true);
+    });
+    test('isLocal', () => {
+      expect(
+        srcSetDefaultOptionsVolto.isLocal(testData.blockDataNoScalesSample1),
+      ).toBe(true);
+      expect(
+        srcSetDefaultOptionsVolto.isLocal(testData.blockDataNoScalesSample2),
+      ).toBe(true);
+      expect(
+        processors.blockDataNoScalesSrc.isLocal({
+          url: 'http://foo.bar/image.png',
+        }),
+      ).toBe(false);
+    });
+    test('preprocessSrc', () => {
+      expect(
+        srcSetDefaultOptionsVolto.preprocessSrc(
+          testData.blockDataNoScalesSample1,
+        ),
+      ).toEqual({
+        ...testData.blockDataNoScalesSample1,
+        __cache: {
+          prefix: '/image1234.jpg',
+        },
+      });
+      expect(
+        srcSetDefaultOptionsVolto.preprocessSrc(
+          testData.blockDataNoScalesSample2,
+        ),
+      ).toEqual({
+        ...testData.blockDataNoScalesSample2,
+        __cache: {
+          prefix: '/image1234.jpg',
+        },
+      });
+    });
+    test('getScalesFromProps', () => {
+      expect(
+        srcSetDefaultOptionsVolto.getScalesFromProps({
+          src: testData.blockDataNoScalesSample1,
+          scales: 'ANYTHING',
+        }),
+      ).toEqual(undefined);
+      expect(
+        srcSetDefaultOptionsVolto.getScalesFromProps({
+          src: testData.blockDataNoScalesSample2,
+          scales: 'ANYTHING',
+        }),
+      ).toEqual(undefined);
+    });
+    test('createScaledSrc', () => {
+      expect(
+        srcSetDefaultOptionsVolto.createScaledSrc(
+          srcSetDefaultOptionsVolto.preprocessSrc(
+            testData.blockDataNoScalesSample1,
+          ),
+          'large',
+          800,
+        ),
+      ).toEqual({});
+    });
+    test('createNoDefaultScaleSrc', () => {
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.blockDataNoScalesSample1,
+        ),
+      ).toBe('/image1234.jpg/@@images/image');
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.blockDataNoScalesSample2,
+        ),
+      ).toBe('/image1234.jpg/@@images/image');
+    });
+  });
   describe('contentDataSrc', () => {
     test('test', () => {
       expect(processors.blockDataSrc.test(testData.contentDataSample1)).toEqual(

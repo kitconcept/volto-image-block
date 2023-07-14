@@ -28,6 +28,27 @@ export const blockDataSrc = {
     ),
 };
 
+// Acquire server data for a block, no scale info, no download attribute
+// We encounter this case when an image just has been uploaded
+export const blockDataNoScalesSrc = {
+  test: (src) => typeof src?.image_scales === 'object',
+  isLocal: (src) => isInternalURL(blockDataPrefixGet(src)),
+  preprocessSrc: (src) => ({
+    ...src,
+    __cache: {
+      prefix: flattenToAppURL(
+        blockDataPrefixGet(src)
+          .replace(/\/@@images\/image.*$/, '')
+          .replace(/\/$/, ''),
+      ),
+    },
+  }),
+  getScalesFromProps: ({ src, scales }) => {},
+  createScaledSrc: (src, scaleName, scaleData) => ({}),
+  createNoDefaultScaleSrc: (src) =>
+    flattenToAppURL(`${blockDataPrefixGet(src)}/@@images/image`),
+};
+
 // Acquire server data for an image instance
 export const contentDataSrc = {
   test: (src) => typeof src?.scales === 'object',
@@ -70,6 +91,8 @@ export const missingSrc = {
 const getProcessor = (src) =>
   blockDataSrc.test(src)
     ? blockDataSrc
+    : blockDataNoScalesSrc.test(src)
+    ? blockDataNoScalesSrc
     : contentDataSrc.test(src)
     ? contentDataSrc
     : stringSrc.test(src)
