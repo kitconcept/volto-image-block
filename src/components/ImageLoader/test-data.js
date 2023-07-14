@@ -313,6 +313,28 @@ export const blockDataNoScalesSample2 = {
   styles: { 'size:noprefix': 'large' },
 };
 
+export const blockDataNoScalesSample3 = {
+  '@type': 'image',
+  // External link
+  url: 'https://placekitten.com/408/287',
+  // empty image_scales, missing image_field
+  image_scales: {},
+  align: 'center',
+  size: 'l',
+  styles: { 'size:noprefix': 'large' },
+};
+
+export const blockDataNoScalesSample4 = {
+  '@type': 'image',
+  // External link
+  url: 'https://kitconcept.com/logo.svg',
+  // empty image_scales, missing image_field
+  image_scales: {},
+  align: 'center',
+  size: 'l',
+  styles: { 'size:noprefix': 'large' },
+};
+
 export const contentDataSample1 = {
   'content-type': 'image/png',
   download:
@@ -386,3 +408,7 @@ export const contentDataSample1 = {
 };
 
 export const stringSample1 = 'http://localhost:3000/@@images/image/huge';
+
+export const stringSample2 = 'https://placekitten.com/408/287';
+
+export const stringSample3 = 'https://kitconcept.com/logo.svg';
