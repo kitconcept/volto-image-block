@@ -292,6 +292,27 @@ export const blockDataSample4 = {
   url: '/example/image-2',
 };
 
+export const blockDataNoScalesSample1 = {
+  '@type': 'image',
+  url: 'http://localhost:3000/image1234.jpg',
+  // empty image_scales, missing image_field
+  image_scales: {},
+  align: 'center',
+  size: 'l',
+  styles: { 'size:noprefix': 'large' },
+};
+
+export const blockDataNoScalesSample2 = {
+  '@type': 'image',
+  // Teaser from object browser has @id instead of url
+  '@id': 'http://localhost:3000/image1234.jpg',
+  // empty image_scales, missing image_field
+  image_scales: {},
+  align: 'center',
+  size: 'l',
+  styles: { 'size:noprefix': 'large' },
+};
+
 export const contentDataSample1 = {
   'content-type': 'image/png',
   download:
