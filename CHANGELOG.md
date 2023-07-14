@@ -8,6 +8,14 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.2 (2023-07-14)
+
+### Bugfix
+
+- Support block data with missing image_scales, after image upload @reebalazs [#16](https://github.com/kitconcept/volto-export/pull/16)
+- Fix upload image preview in edit mode @sneridagh [#17](https://github.com/kitconcept/volto-export/pull/17)
+
+
 ## 1.0.1 (2023-06-08)
 
 ### Bugfix
