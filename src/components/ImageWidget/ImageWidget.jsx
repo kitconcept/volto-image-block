@@ -65,9 +65,9 @@ const ImageWidget = (props) => {
   useEffect(() => {
     if (loading && requestLoaded && uploading) {
       setUploading(false);
-      onChange(id, urlUploaded);
+      onChange(id, urlUploaded, content);
     }
-  }, [id, urlUploaded, requestLoaded, loading, uploading, onChange]);
+  }, [content, id, urlUploaded, requestLoaded, loading, uploading, onChange]);
 
   loading = usePrevious(request?.loading);
 
@@ -188,7 +188,7 @@ const ImageWidget = (props) => {
     </>
   );
 
-  const Img = config.getComponent('Img').component || Image;
+  const Img = config.getComponent('Image').component || Image;
 
   return (
     <div className="image-widget">

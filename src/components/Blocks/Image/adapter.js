@@ -1,3 +1,5 @@
+import { flattenScales } from '../../../helpers/flattenScalesURLs';
+
 export const ImageBlockDataAdapter = ({
   block,
   data,
@@ -41,12 +43,18 @@ export const ImageBlockDataAdapter = ({
   }
 
   if (id === 'url') {
+    const image = flattenScales(item);
+
     dataSaved = {
       ...dataSaved,
       credit: { data: item?.credit },
       description: item?.Description,
       title: item?.Title,
-      image_scales: item?.image_scales || {},
+      image_scales:
+        item?.image_scales || {
+          ...(item?.image && { image: [image] }),
+        } ||
+        {},
     };
   }
   onChangeBlock(block, dataSaved);
