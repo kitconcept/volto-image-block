@@ -8,6 +8,13 @@
 
 <!-- towncrier release notes start -->
 
+## 1.0.3 (2023-07-18)
+
+### Bugfix
+
+- Support block data with external image url @reebalazs [#18](https://github.com/kitconcept/volto-export/pull/18)
+
+
 ## 1.0.2 (2023-07-14)
 
 ### Bugfix
