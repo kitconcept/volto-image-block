@@ -45,8 +45,12 @@ export const blockDataNoScalesSrc = {
   }),
   getScalesFromProps: ({ src, scales }) => {},
   createScaledSrc: (src, scaleName, scaleData) => ({}),
-  createNoDefaultScaleSrc: (src) =>
-    flattenToAppURL(`${blockDataPrefixGet(src)}/@@images/image`),
+  createNoDefaultScaleSrc: (src) => {
+    const prefix = blockDataPrefixGet(src);
+    return isInternalURL(prefix)
+      ? flattenToAppURL(`${prefix}/@@images/image`)
+      : prefix;
+  },
 };
 
 // Acquire server data for an image instance
@@ -81,7 +85,7 @@ export const stringSrc = {
 // Fallback when no data is available (e.g. loading transition)
 export const missingSrc = {
   test: (src) => true,
-  isLocal: (scr) => false,
+  isLocal: (src) => false,
   preprocessSrc: (src) => undefined,
   getScalesFromProps: ({ src, scales }) => scales,
   createScaledSrc: (src, scaleName, scaleData) => ({}),

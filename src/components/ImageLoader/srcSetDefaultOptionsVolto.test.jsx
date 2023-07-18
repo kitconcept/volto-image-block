@@ -11,7 +11,7 @@ jest.mock('@plone/volto/helpers', () => {
     isInternalURL: jest.fn(
       (url) =>
         url.search(/http:\/\/localhost:3000/) !== -1 ||
-        url.search(/http:\/\//) === -1,
+        url.search(/https?:\/\//) === -1,
     ),
   };
 });
@@ -286,6 +286,12 @@ describe('srcSetDefaultOptionsVolto', () => {
       expect(
         processors.blockDataNoScalesSrc.test(testData.blockDataNoScalesSample2),
       ).toEqual(true);
+      expect(
+        processors.blockDataNoScalesSrc.test(testData.blockDataNoScalesSample3),
+      ).toEqual(true);
+      expect(
+        processors.blockDataNoScalesSrc.test(testData.blockDataNoScalesSample4),
+      ).toEqual(true);
     });
     test('isLocal', () => {
       expect(
@@ -295,9 +301,10 @@ describe('srcSetDefaultOptionsVolto', () => {
         srcSetDefaultOptionsVolto.isLocal(testData.blockDataNoScalesSample2),
       ).toBe(true);
       expect(
-        processors.blockDataNoScalesSrc.isLocal({
-          url: 'http://foo.bar/image.png',
-        }),
+        srcSetDefaultOptionsVolto.isLocal(testData.blockDataNoScalesSample3),
+      ).toBe(false);
+      expect(
+        srcSetDefaultOptionsVolto.isLocal(testData.blockDataNoScalesSample4),
       ).toBe(false);
     });
     test('preprocessSrc', () => {
@@ -321,6 +328,26 @@ describe('srcSetDefaultOptionsVolto', () => {
           prefix: '/image1234.jpg',
         },
       });
+      expect(
+        srcSetDefaultOptionsVolto.preprocessSrc(
+          testData.blockDataNoScalesSample3,
+        ),
+      ).toEqual({
+        ...testData.blockDataNoScalesSample3,
+        __cache: {
+          prefix: testData.blockDataNoScalesSample3.url,
+        },
+      });
+      expect(
+        srcSetDefaultOptionsVolto.preprocessSrc(
+          testData.blockDataNoScalesSample4,
+        ),
+      ).toEqual({
+        ...testData.blockDataNoScalesSample4,
+        __cache: {
+          prefix: testData.blockDataNoScalesSample4.url,
+        },
+      });
     });
     test('getScalesFromProps', () => {
       expect(
@@ -332,6 +359,18 @@ describe('srcSetDefaultOptionsVolto', () => {
       expect(
         srcSetDefaultOptionsVolto.getScalesFromProps({
           src: testData.blockDataNoScalesSample2,
+          scales: 'ANYTHING',
+        }),
+      ).toEqual(undefined);
+      expect(
+        srcSetDefaultOptionsVolto.getScalesFromProps({
+          src: testData.blockDataNoScalesSample3,
+          scales: 'ANYTHING',
+        }),
+      ).toEqual(undefined);
+      expect(
+        srcSetDefaultOptionsVolto.getScalesFromProps({
+          src: testData.blockDataNoScalesSample4,
           scales: 'ANYTHING',
         }),
       ).toEqual(undefined);
@@ -358,6 +397,16 @@ describe('srcSetDefaultOptionsVolto', () => {
           testData.blockDataNoScalesSample2,
         ),
       ).toBe('/image1234.jpg/@@images/image');
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.blockDataNoScalesSample3,
+        ),
+      ).toBe(testData.blockDataNoScalesSample3.url);
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.blockDataNoScalesSample4,
+        ),
+      ).toBe(testData.blockDataNoScalesSample4.url);
     });
   });
   describe('contentDataSrc', () => {
@@ -485,12 +534,29 @@ describe('srcSetDefaultOptionsVolto', () => {
         false,
       );
       expect(processors.stringSrc.test(testData.stringSample1)).toEqual(true);
+      expect(processors.blockDataSrc.test(testData.stringSample2)).toEqual(
+        false,
+      );
+      expect(processors.contentDataSrc.test(testData.stringSample2)).toEqual(
+        false,
+      );
+      expect(processors.stringSrc.test(testData.stringSample2)).toEqual(true);
+      expect(processors.blockDataSrc.test(testData.stringSample3)).toEqual(
+        false,
+      );
+      expect(processors.contentDataSrc.test(testData.stringSample3)).toEqual(
+        false,
+      );
+      expect(processors.stringSrc.test(testData.stringSample3)).toEqual(true);
     });
     test('isLocal', () => {
       expect(srcSetDefaultOptionsVolto.isLocal(testData.stringSample1)).toBe(
         true,
       );
-      expect(processors.stringSrc.isLocal('http://foo.bar/image.png')).toBe(
+      expect(srcSetDefaultOptionsVolto.isLocal(testData.stringSample2)).toBe(
+        false,
+      );
+      expect(srcSetDefaultOptionsVolto.isLocal(testData.stringSample3)).toBe(
         false,
       );
     });
@@ -498,6 +564,12 @@ describe('srcSetDefaultOptionsVolto', () => {
       expect(
         srcSetDefaultOptionsVolto.preprocessSrc(testData.stringSample1),
       ).toBe('');
+      expect(
+        srcSetDefaultOptionsVolto.preprocessSrc(testData.stringSample2),
+      ).toBe(testData.stringSample2);
+      expect(
+        srcSetDefaultOptionsVolto.preprocessSrc(testData.stringSample3),
+      ).toBe(testData.stringSample3);
     });
     test('getScalesFromProps', () => {
       expect(
@@ -523,6 +595,16 @@ describe('srcSetDefaultOptionsVolto', () => {
       expect(
         srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
           testData.stringSample1,
+        ),
+      ).toBe(undefined);
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.stringSample2,
+        ),
+      ).toBe(undefined);
+      expect(
+        srcSetDefaultOptionsVolto.createNoDefaultScaleSrc(
+          testData.stringSample3,
         ),
       ).toBe(undefined);
     });
