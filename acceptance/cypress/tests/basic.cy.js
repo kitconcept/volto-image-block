@@ -36,7 +36,7 @@ context('Basic Acceptance Tests', () => {
     });
 
     it('As editor I can add a link to a text block', function () {
-      cy.intercept('GET', '/**/document').as('content');
+      cy.intercept('GET', `/**/*?expand*`).as('content');
       cy.visit('/document');
       cy.wait('@content');
 
@@ -52,12 +52,8 @@ context('Basic Acceptance Tests', () => {
 
       cy.get('.link-form-container input').type('https://google.com{enter}');
       cy.get('#toolbar-save').click();
+      cy.wait('@content');
       cy.url().should('eq', Cypress.config().baseUrl + '/document');
-      cy.waitForResourceToLoad('@navigation');
-      cy.waitForResourceToLoad('@breadcrumbs');
-      cy.waitForResourceToLoad('@actions');
-      cy.waitForResourceToLoad('@types');
-      cy.waitForResourceToLoad('document');
 
       // then the page view should contain a link
       cy.get('.ui.container p').contains(
