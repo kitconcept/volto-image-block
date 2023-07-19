@@ -52,8 +52,8 @@ context('Basic Acceptance Tests', () => {
 
       cy.get('.link-form-container input').type('https://google.com{enter}');
       cy.get('#toolbar-save').click();
-      cy.url().should('eq', Cypress.config().baseUrl + '/document');
       cy.wait('@content');
+      cy.url().should('eq', Cypress.config().baseUrl + '/document');
 
       // then the page view should contain a link
       cy.get('.ui.container p').contains(
