@@ -1,2 +1,4 @@
 fast-blurhash.min.js
 cypress
+node_modules
+acceptance
