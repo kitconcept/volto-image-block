@@ -36,7 +36,7 @@ context('Basic Acceptance Tests', () => {
     });
 
     it('As editor I can add a link to a text block', function () {
-      cy.intercept('GET', '/**/document').as('content');
+      cy.intercept('GET', `/**/*?expand*`).as('content');
       cy.visit('/document');
       cy.wait('@content');
 
